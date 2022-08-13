@@ -3,6 +3,7 @@ import ballUrl from "../assets/ball.png";
 import paddleUrl from "../assets/paddle.png";
 
 export class GameScene extends Phaser.Scene {
+  ball?: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
   playerL?: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
   playerR?: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
 
@@ -25,16 +26,15 @@ export class GameScene extends Phaser.Scene {
   }
 
   create(): void {
-    // draw the ball
-    this.add.image(400, 300, "ball");
-
     // draw left player
     this.playerL = this.physics.add.image(50, 300, "paddle");
     this.playerL.setCollideWorldBounds(true);
+    this.playerL.setPushable(false);
 
     // draw right player
     this.playerR = this.physics.add.image(750, 300, "paddle");
     this.playerR.setCollideWorldBounds(true);
+    this.playerR.setPushable(false);
 
     const keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     const keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
@@ -49,6 +49,34 @@ export class GameScene extends Phaser.Scene {
       keyUp,
       keyDown,
     };
+
+    // draw the ball
+    this.ball = this.physics.add.image(400, 300, "ball");
+    this.ball.setVelocity(200, 200);
+    this.ball.setCollideWorldBounds(true);
+    this.physics.add.collider(this.playerL, this.ball);
+    this.physics.add.collider(this.playerR, this.ball);
+    this.ball.setBounce(1);
+
+    this.ball.body.onWorldBounds = true;
+    this.physics.world.on(
+      Phaser.Physics.Arcade.Events.WORLD_BOUNDS,
+      (
+        body: Phaser.Physics.Arcade.Body,
+        up: boolean,
+        down: boolean,
+        left: boolean,
+        right: boolean
+      ) => {
+        if (body.gameObject !== this.ball) {
+          return;
+        }
+
+        if (right || left) {
+          this.ball.setVelocity(0, 0);
+        }
+      }
+    );
   }
 
   update(): void {
