@@ -1,6 +1,9 @@
 {
-  "name": "ld48",
+  "name": "pong",
   "version": "0.0.0",
+  "author": {
+    "name": "chiptus"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -11,6 +14,6 @@
     "vite": "^2.1.5"
   },
   "dependencies": {
-    "phaser": "^3.54.0"
+    "phaser": "3.60.0-beta.9"
   }
 }
