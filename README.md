@@ -1,30 +1,52 @@
-## See this template in action
-See it live at https://ubershmekel.github.io/vite-phaser-ts-starter/
+# Pong
 
-## Get Started
-This is an example template. To try it out do the following:
+## Game objects:
 
-1. Clone this repo
-1. Run `npm install`
-1. Run `npm run dev`
-1. You should see a URL where your game shows up
+- Ball
+- Paddle
+- Score
 
-```
-{
-  "scripts": {
-    "dev": "vite", // start dev server
-    "build": "vite build", // build for production
-    "serve": "vite preview" // locally preview production build
-  }
-}
-```
+## Game rules:
 
-Btw the live demo gets built by the github action at `.github/workflows/main.yml`. 
+- Player 1 controls the left paddle
+- Player 2 controls the right paddle
+- The ball bounces off the walls
+- The ball bounces off the paddles
+- The ball is lost if it goes off the top or bottom of the screen
+- The game is won if a player reaches 10 points
 
-## Why this tech stack
+## Screens:
 
-I looked at quite a few web game frameworks. I settled on this setup because:
+- Main menu
+  - Choose number of players
+  - Play
+- Game screen
+- Game over screen
+- High score screen
 
-* Phaser is the most prominent web game framework, with a lot of examples for pretty much every scenario.
-* Typescript lets me auto-complete everything and makes sure I avoid silly typo bugs.
-* Vite is much faster and simpler than Rollup and Webpack. I practically didn't have to do anything to get Phaser to work here, there's no complicated config file. The development-build-refresh cycle seems instant. It's fast enough that I never felt the need to measure it. Vite was built by evanw@ the person that built Vue.js.
+## Tasks:
+
+### MVP
+
+- Create a game object for the ball
+- Create a game object for the paddles
+- Create a game object for the score
+- Game screen
+  - Draw the ball
+  - Draw the paddles
+  - Draw the score
+  - 2 Players:
+    - Player 1 controls the left paddle (W and S)
+    - Player 2 controls the right paddle (Up and Down)
+  - Ball starts in the middle of the screen and goes to the direction of the paddle that hit it last (or to player 1 if none)
+  - The ball bounces off the walls
+  - The ball bounces off the paddles
+  - The ball is lost if it goes off the left or right of the screen
+  - The game is won if a player reaches 10 points
+
+## Possible Extensions
+
+- More screens
+- 1 player game
+- mobile game
+- pause game
