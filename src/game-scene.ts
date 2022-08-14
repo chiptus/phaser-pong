@@ -30,7 +30,10 @@ export class GameScene extends Phaser.Scene {
         keyUp: Phaser.Input.Keyboard.KeyCodes.UP,
       },
     });
-    this.ball = new Ball({ scene: this });
+    this.ball = new Ball({
+      scene: this,
+      players: [this.playerL, this.playerR],
+    });
   }
 
   preload(): void {
