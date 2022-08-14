@@ -19,18 +19,7 @@ export class Ball {
     this.players = players;
   }
 
-  create(onCollideWithWorldBound: (winner: "left" | "right") => void) {
-    this.gameObject = this.scene.physics.add.image(400, 300, "ball");
-    this.gameObject.setVelocity(200, 200);
-    this.gameObject.setCollideWorldBounds(true);
-    this.gameObject.setBounce(1);
-    this.players.forEach((p) => {
-      if (p.gameObject && this.gameObject) {
-        this.scene.physics.add.collider(this.gameObject, p.gameObject);
-      }
-    });
-
-    this.gameObject.body.onWorldBounds = true;
+  setCallback(onCollideWithWorldBound: (winner: "left" | "right") => void) {
     this.scene.physics.world.on(
       Phaser.Physics.Arcade.Events.WORLD_BOUNDS,
       (
@@ -52,6 +41,20 @@ export class Ball {
         }
       }
     );
+  }
+
+  create() {
+    this.gameObject = this.scene.physics.add.image(400, 300, "ball");
+    this.gameObject.setVelocity(200, 200);
+    this.gameObject.setCollideWorldBounds(true);
+    this.gameObject.setBounce(1);
+    this.players.forEach((p) => {
+      if (p.gameObject && this.gameObject) {
+        this.scene.physics.add.collider(this.gameObject, p.gameObject);
+      }
+    });
+
+    this.gameObject.body.onWorldBounds = true;
   }
 
   update() {}

@@ -69,9 +69,15 @@ export class GameScene extends Phaser.Scene {
   create() {
     this.playerL.create();
     this.playerR.create();
-    this.ball.create((winner) => {
+
+    this.ball.setCallback((winner) => {
       this.addPoint(winner);
+      if (this.score[winner] < 10) {
+        this.ball.create();
+      }
     });
+
+    this.ball.create();
   }
 
   update() {
