@@ -19,7 +19,7 @@ export class Ball {
     this.players = players;
   }
 
-  create() {
+  create(onCollideWithWorldBound: (winner: "left" | "right") => void) {
     this.gameObject = this.scene.physics.add.image(400, 300, "ball");
     this.gameObject.setVelocity(200, 200);
     this.gameObject.setCollideWorldBounds(true);
@@ -35,8 +35,8 @@ export class Ball {
       Phaser.Physics.Arcade.Events.WORLD_BOUNDS,
       (
         body: Phaser.Physics.Arcade.Body,
-        up: boolean,
-        down: boolean,
+        _up: boolean,
+        _down: boolean,
         left: boolean,
         right: boolean
       ) => {
@@ -45,7 +45,10 @@ export class Ball {
         }
 
         if (right || left) {
-          this.gameObject.setVelocity(0, 0);
+          // destroy the ball
+          this.gameObject.destroy();
+          // call the provided callback
+          onCollideWithWorldBound(left ? "right" : "left");
         }
       }
     );
