@@ -14,8 +14,22 @@ export class GameScene extends Phaser.Scene {
       key: "GameScene",
     });
 
-    this.playerL = new Player({ scene: this, startX: 50 });
-    this.playerR = new Player({ scene: this, startX: 750 });
+    this.playerL = new Player({
+      scene: this,
+      startX: 50,
+      cursors: {
+        keyDown: Phaser.Input.Keyboard.KeyCodes.S,
+        keyUp: Phaser.Input.Keyboard.KeyCodes.W,
+      },
+    });
+    this.playerR = new Player({
+      scene: this,
+      startX: 750,
+      cursors: {
+        keyDown: Phaser.Input.Keyboard.KeyCodes.DOWN,
+        keyUp: Phaser.Input.Keyboard.KeyCodes.UP,
+      },
+    });
     this.ball = new Ball({ scene: this });
   }
 
