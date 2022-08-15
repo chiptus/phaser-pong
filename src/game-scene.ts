@@ -74,10 +74,26 @@ export class GameScene extends Phaser.Scene {
       this.addPoint(winner);
       if (this.score[winner] < 10) {
         this.ball.create();
+      } else {
+        this.gameEnded();
       }
     });
 
     this.ball.create();
+  }
+
+  gameEnded() {
+    this.playerL.destroy();
+    this.playerR.destroy();
+    this.score.leftText?.destroy();
+    this.score.rightText?.destroy();
+
+    const winner = this.score.left > this.score.right ? "Left" : "Right";
+
+    this.add.text(100, 200, `${winner} Player Won`, {
+      fontSize: "64px",
+      color: "#fff",
+    });
   }
 
   update() {

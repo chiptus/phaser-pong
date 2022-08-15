@@ -36,6 +36,10 @@ export class Player {
   }
 
   update() {
+    if (!this.gameObject) {
+      return;
+    }
+
     this.gameObject?.setVelocity(0);
 
     if (this.keyUp?.isDown) {
@@ -43,5 +47,10 @@ export class Player {
     } else if (this.keyDown?.isDown) {
       this.gameObject?.setVelocityY(300);
     }
+  }
+
+  destroy() {
+    this.gameObject?.destroy();
+    this.gameObject = undefined;
   }
 }
